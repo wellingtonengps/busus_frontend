@@ -1,10 +1,17 @@
 {
   "expo": {
-    "name": "bususv2",
-    "slug": "bususv2",
+    "name": "busus",
+    "slug": "busus",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"],
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ],
+    "userInterfaceStyle": "automatic"
   }
 }
