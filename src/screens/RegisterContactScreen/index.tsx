@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
-import { useAuth } from "../../hooks/auth";
+import { useAuth, User } from "../../hooks/auth";
 import * as Yup from "yup";
 
 import { Container, Title, SubTitle, InputContainer, Header } from "./styles";
@@ -17,12 +17,10 @@ const schema = Yup.object().shape({
   email: Yup.string().required("E-mail é obrigatório").email(),
 });
 
-export function RegisterContactScreen({ navigation, route }: any) {
+export function RegisterContactScreen({ navigation }: any, { name, CPF, password, susNumber }: User) {
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const theme = useTheme();
-
-  const { name, CPF, password, susNumber } = route.params;
 
   const {
     control,

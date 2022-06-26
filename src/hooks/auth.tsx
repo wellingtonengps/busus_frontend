@@ -9,10 +9,10 @@ const inBrowser = typeof document !== "undefined";
 export const apiDomain = inProduction
   ? "mywebsite.com"
   : inExpo
-  ? Constants.manifest!.debuggerHost!.split(`:`).shift()
-  : inBrowser
-  ? document.location.hostname
-  : "unknown";
+    ? Constants.manifest!.debuggerHost!.split(`:`).shift()
+    : inBrowser
+      ? document.location.hostname
+      : "unknown";
 
 console.log("apiDomain:", apiDomain);
 
@@ -26,13 +26,13 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-interface User {
+export interface User {
   phoneNumber: number;
   name: string;
   CPF: number;
   password: string;
   susNumber: number;
-  photo: string;
+  photoURI: string;
 }
 
 interface IAuthContextData {
@@ -61,16 +61,16 @@ function AuthProvider({ children }: AuthProviderProps) {
         sus_code: user.susNumber,
         password: user.password,
         phone_number: user.phoneNumber,
-        profile_image: parseInt(user.photo),
+        profile_image: user.photoURI,
       }),
     });
     const content = await response.json();
     console.log(content);
   }
 
-  function handleSignIn() {}
+  function handleSignIn() { }
 
-  function handleSignOut() {}
+  function handleSignOut() { }
 
   return (
     <AuthContext.Provider

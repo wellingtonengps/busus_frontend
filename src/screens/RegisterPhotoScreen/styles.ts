@@ -34,6 +34,10 @@ export const InputPhoto = styled.TouchableOpacity`
   border-radius: 75px;
 `;
 
+export const Image = styled.Image`
+  
+`;
+
 export const Footer = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular_roboto};
   font-size: 18px;
