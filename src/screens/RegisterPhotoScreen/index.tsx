@@ -29,8 +29,6 @@ export function RegisterPhotoScreen({ phoneNumber, name, CPF, password, susNumbe
 
   const { user, handleCreateUserAccount } = useAuth();
 
-  const formData = new FormData();
-
   const {
     control,
     handleSubmit,
@@ -48,48 +46,15 @@ export function RegisterPhotoScreen({ phoneNumber, name, CPF, password, susNumbe
         allowsEditing: true,
         aspect: [4, 4],
         quality: 1,
-        base64: true,
       },);
       if (!result.cancelled) {
-        /*setPhoto(result);
-
-        formData.append("name", "wellington"),
-          formData.append("CPF", "14237106659"),
-          formData.append("password", "wel1ing7"),
-          formData.append("sus_code", "123456789"),
-          formData.append("phone_number", "33999938459"),
-
-          */
-
-        formData.append('image',
-          JSON.parse(JSON.stringify({ uri: result.uri, type: 'image/png', name: 'image.png' }))
-        );
-
-        console.log(formData);
-
+        setPhoto(result);
       }
     } catch (error) {
       console.log(error);
     }
   }
 
-  async function uploatProfile() {
-    try {
-      const response = await fetch(`http://192.168.15.6:3000/profileUpload`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        body: formData,
-      });
-      const content = await response.json();
-      console.log(content);
-    } catch (error) {
-      console.log(error);
-    }
-
-  }
-  /*
   async function handleRegister() {
     handleCreateUserAccount({
       name: name,
@@ -97,9 +62,9 @@ export function RegisterPhotoScreen({ phoneNumber, name, CPF, password, susNumbe
       password: password,
       susNumber: susNumber,
       phoneNumber: phoneNumber,
-      photoURI: "teste",
+      photoURI: photo?.uri!,
     });
-  }*/
+  }
 
 
 
@@ -118,7 +83,7 @@ export function RegisterPhotoScreen({ phoneNumber, name, CPF, password, susNumbe
         Clique no icone para selecionar ou tirar{"\n"}sua foto de perfil
       </Footer>
 
-      <Button title="Registrar" onPress={() => uploatProfile()} />
+      <Button title="Registrar" onPress={() => handleRegister()} />
     </Container>
   );
 }

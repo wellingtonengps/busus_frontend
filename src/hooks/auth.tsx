@@ -14,8 +14,6 @@ export const apiDomain = inProduction
       ? document.location.hostname
       : "unknown";
 
-console.log("apiDomain:", apiDomain);
-
 const protocol = inProduction ? "https" : "http";
 
 const apiUrl = `${protocol}://${apiDomain}/user`;
@@ -50,22 +48,34 @@ function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
 
   async function handleCreateUserAccount(user: User) {
-    const response = await fetch(`http://192.168.15.6:3000/user`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: user.name,
-        CPF: user.CPF,
-        sus_code: user.susNumber,
-        password: user.password,
-        phone_number: user.phoneNumber,
-        profile_image: user.photoURI,
-      }),
-    });
-    const content = await response.json();
-    console.log(content);
+    const formData = new FormData();
+
+    try {
+
+
+      formData.append("image", { uri: user.photoURI, type: 'image/png', name: 'image.png' });
+      formData.append("name", "Wellington Pereira");
+      formData.append("CPF", "14237106659");
+      formData.append("sus_code", "123456789");
+      formData.append("password", "wel1ing7")
+      formData.append("phone_number", "33999938459");
+
+      console.log(formData);
+
+
+
+      const response = await fetch(`http://192.168.15.6:3000/user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        body: formData
+      });
+      const content = await response.json();
+      console.log(content);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function handleSignIn() { }
