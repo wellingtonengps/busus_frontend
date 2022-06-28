@@ -11,13 +11,19 @@ import { IconButton } from "../../components";
 import { useTheme } from "styled-components";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RegisterContactParamsProps } from "../../routers/types";
 
 const schema = Yup.object().shape({
   password: Yup.string().required("Senha é obrigatória"),
   email: Yup.string().required("E-mail é obrigatório").email(),
 });
 
-export function RegisterContactScreen({ navigation }: any, { name, CPF, password, susNumber }: User) {
+
+export function RegisterContactScreen({ route, navigation }: RegisterContactParamsProps) {
+
+  const { CPF, name, password, susNumber } = route.params
+
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const theme = useTheme();
@@ -33,7 +39,7 @@ export function RegisterContactScreen({ navigation }: any, { name, CPF, password
 
   function handlePhotoScreen() {
     navigation.navigate("RegisterPhotoScreen", {
-      phoneNumber,
+      phoneNumber: parseInt(phoneNumber),
       name,
       CPF,
       password,
@@ -50,18 +56,18 @@ export function RegisterContactScreen({ navigation }: any, { name, CPF, password
 
       <InputContainer>
         <Input
-          name="contact"
-          error={errors.contact && errors.contact.message}
-          control={control}
+          //name="contact"
+          //error={errors.contact && errors.contact.message}
+          //control={control}
           icon="call"
           placeholder="Telefone"
           onChangeText={setPhoneNumber}
           keyboardType="numeric"
         />
         <Input
-          name="contactConfirmed"
-          error={errors.contactConfirmed && errors.contactConfirmed.message}
-          control={control}
+          //name="contactConfirmed"
+          //error={errors.contactConfirmed && errors.contactConfirmed.message}
+          //control={control}
           icon="call"
           placeholder="Confirmar Telefone"
           onChangeText={setPhoneNumber}

@@ -16,18 +16,19 @@ import {
   Image,
 } from "./styles";
 import { useTheme } from "styled-components";
+import { RegisterPhotoParamsProps } from "../../routers/types";
 
 const schema = Yup.object().shape({
   password: Yup.string().required("Senha é obrigatória"),
   email: Yup.string().required("E-mail é obrigatório").email(),
 });
 
-
-
-export function RegisterPhotoScreen({ phoneNumber, name, CPF, password, susNumber }: User) {
+export function RegisterPhotoScreen({ route }: RegisterPhotoParamsProps) {
   const [photo, setPhoto] = useState<ImagePicker.ImageInfo>();
 
   const { user, handleCreateUserAccount } = useAuth();
+
+  const { phoneNumber, name, CPF, password, susNumber, } = route.params
 
   const {
     control,
@@ -64,6 +65,9 @@ export function RegisterPhotoScreen({ phoneNumber, name, CPF, password, susNumbe
       phoneNumber: phoneNumber,
       photoURI: photo?.uri!,
     });
+
+    console.log(name);
+
   }
 
 

@@ -37,7 +37,6 @@ interface IAuthContextData {
   user: User | null;
   setUser(user: User | null): void;
   handleCreateUserAccount(user: User): void;
-  //passar o CPF no formato number para o banco de dados
   handleSignIn(CPF: string, password: string): void;
   handleSignOut(): void;
 }
@@ -47,18 +46,17 @@ export const AuthContext = createContext({} as IAuthContextData);
 function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
 
-  async function handleCreateUserAccount(user: User) {
+  async function handleCreateUserAccount({ name, CPF, susNumber, password, phoneNumber, photoURI }: User) {
     const formData = new FormData();
 
     try {
 
-
-      formData.append("image", { uri: user.photoURI, type: 'image/png', name: 'image.png' });
-      formData.append("name", "Wellington Pereira");
-      formData.append("CPF", "14237106659");
-      formData.append("sus_code", "123456789");
-      formData.append("password", "wel1ing7")
-      formData.append("phone_number", "33999938459");
+      formData.append("image", { uri: photoURI, type: 'image/png', name: 'image.png' });
+      formData.append("name", name);
+      formData.append("CPF", CPF.toString());
+      formData.append("sus_code", susNumber.toString());
+      formData.append("password", password)
+      formData.append("phone_number", phoneNumber.toString());
 
       console.log(formData);
 

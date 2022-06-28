@@ -11,8 +11,10 @@ import {
   Home,
 } from "../screens";
 
+import { RootStackParamProps } from "./types";
+
 export function AuthRoutes() {
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator<RootStackParamProps>();
 
   return (
     <NavigationContainer>

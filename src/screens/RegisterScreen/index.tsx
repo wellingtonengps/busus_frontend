@@ -7,6 +7,7 @@ import { Container, Title, SubTitle, InputContainer, Header } from "./styles";
 import { IconButton, InputControl } from "../../components";
 import { useTheme } from "styled-components";
 import { MaterialIcons } from "@expo/vector-icons";
+import { RegisterParamsProps } from "../../routers/types";
 
 const schema = Yup.object().shape({
   password: Yup.string().required("Senha é obrigatória"),
@@ -14,7 +15,7 @@ const schema = Yup.object().shape({
 });
 
 //FIXME: tipo de navegacao
-export function RegisterScreen({ navigation }: any) {
+export function RegisterScreen({ navigation }: RegisterParamsProps) {
   const [name, setName] = useState("");
   const [CPF, setCPF] = useState("");
   const [password, setPassword] = useState("");
@@ -34,9 +35,9 @@ export function RegisterScreen({ navigation }: any) {
   function handleContactScreen() {
     navigation.navigate("RegisterContactScreen", {
       name,
-      CPF,
+      CPF: parseInt(CPF),
       password,
-      susNumber,
+      susNumber: parseInt(CPF),
     });
   }
 
